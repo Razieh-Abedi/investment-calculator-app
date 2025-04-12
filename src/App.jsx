@@ -12,6 +12,8 @@ function App() {
     duration: 0,
   });
 
+  const inputIsValid = Object.values(formInfo).every((item) => item >= 1);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormInfo((prevFormInfo) => ({
@@ -25,7 +27,10 @@ function App() {
       <Header />
 
       <UserInput onInputChange={handleInputChange} formInfo={formInfo} />
-      <Results formInfo={formInfo} />
+      {!inputIsValid && (
+        <p className="center">Zero or negative values are not accepted.</p>
+      )}
+      {inputIsValid && <Results formInfo={formInfo} />}
     </>
   );
 }
